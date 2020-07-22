@@ -37,17 +37,17 @@ for x in range(pages):
 			URL = link
 			response = requests.get(URL,headers = HEADERS)
 			soup = BeautifulSoup(response.content,'lxml')
-			answers_total = soup.findAll('div',class_='card card_answer')
-			for answer_total in answers_total:
+			answers = soup.findAll('div',class_='card card_answer')
+			for answer in answers:
 				###past1
 				title_1 = soup.find('h1',class_='card__topic-title').text
 				comment_1 = soup.find('div',class_='card card_topic-start').find('p').text
 				name_comment_1 = soup.find('div',class_='card_topic-start').find(class_='user__name').text
 				date_comment_1 = soup.find('div',class_='card_topic-start').find(class_='user__metadata').text.split('-')[1]
 				###past2
-				date_comment_2 = answer_total.find(class_='user__metadata').text.split('-')[1]
-				name_comment_2 = answer_total.find(class_='user__name').text
-				comment_2 = answer_total.find('div',class_='card__text').text
+				date_comment_2 = answer.find(class_='user__metadata').text.split('-')[1]
+				name_comment_2 = answer.find(class_='user__name').text
+				comment_2 = answer.find('div',class_='card__text').text
 				###past1
 				baza.update({'0' : link })
 				baza.update({'1' : title_1})
@@ -73,6 +73,7 @@ for x in range(pages):
 		continue
 print('success')
 wb.save("work.xlsx")
+
 
 
 
